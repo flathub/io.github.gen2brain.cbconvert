@@ -1,6 +1,6 @@
 app-id: io.github.gen2brain.cbconvert
 runtime: org.freedesktop.Platform
-runtime-version: '25.08'
+runtime-version: '26.08'
 sdk: org.freedesktop.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.golang
@@ -17,11 +17,6 @@ build-options:
     - GOROOT=/usr/lib/sdk/golang
     - GOTOOLCHAIN=local
 
-cleanup:
-  - '/include'
-  - '/lib/cmake'
-  - '/lib/pkgconfig'
-
 modules:
 
   - name: CBconvert
@@ -30,37 +25,20 @@ modules:
     build-commands:
       - cp dist/linux/modules.txt vendor/
       - rm -f ../../go.work ../../go.work.sum ../../go.mod ../../go.sum
-      - $GOROOT/bin/go build -mod=vendor -trimpath -ldflags "-s -w -X main.appVersion=1.2.0" .
+      - $GOROOT/bin/go build -mod=vendor -trimpath -ldflags "-s -w -X main.appVersion=1.3.0" .
       - install -Dm00755 cbconvert-gui /app/bin/cbconvert-gui
       - install -Dm00644 dist/linux/$FLATPAK_ID.png /app/share/icons/hicolor/256x256/apps/$FLATPAK_ID.png
       - install -Dm00644 dist/linux/$FLATPAK_ID.desktop /app/share/applications/$FLATPAK_ID.desktop
       - install -Dm00644 dist/linux/$FLATPAK_ID.metainfo.xml /app/share/metainfo/$FLATPAK_ID.metainfo.xml
-      - install -d /app/lib
-      - ln -sf /usr/lib/$FLATPAK_ARCH-linux-gnu/libjxl.so.0.11 /app/lib/libjxl.so
-      - ln -sf /usr/lib/$FLATPAK_ARCH-linux-gnu/libwebp.so.7 /app/lib/libwebp.so
-      - ln -sf /usr/lib/$FLATPAK_ARCH-linux-gnu/libwebpdemux.so.2 /app/lib/libwebpdemux.so
-      - ln -sf /usr/lib/$FLATPAK_ARCH-linux-gnu/libavif.so.16 /app/lib/libavif.so
     sources:
       - type: archive
-        url: https://github.com/gen2brain/cbconvert/archive/refs/tags/cmd/cbconvert-gui/v1.2.0.tar.gz
-        sha256: 82824160bd6e61849e02de653f35ba1968b14dcf777bd83f07ba443192c45827
+        url: https://github.com/gen2brain/cbconvert/archive/refs/tags/cmd/cbconvert-gui/v1.3.0.tar.gz
+        sha256: 5b302345322f37d1f9c0c765f756b04724639105bc54a4a2763acbe51a378bf0
 
       - type: archive
-        url: https://github.com/gen2brain/cbconvert/archive/refs/tags/cmd/cbconvert-gui/v1.2.0.tar.gz
-        sha256: 82824160bd6e61849e02de653f35ba1968b14dcf777bd83f07ba443192c45827
+        url: https://github.com/gen2brain/cbconvert/archive/refs/tags/v1.3.0.tar.gz
+        sha256: 40f85e4a51e5473f3105fd7a5651079bd274c79b000d5a4dc463d7ca7852a464
         dest: cmd/cbconvert-gui/vendor/github.com/gen2brain/cbconvert
-
-      - type: archive
-        url: https://proxy.golang.org/github.com/gen2brain/iup-go/iup/@v/v0.32.1-0.20260627135200-7df674d35173.zip
-        strip-components: 4
-        dest: cmd/cbconvert-gui/vendor/github.com/gen2brain/iup-go/iup
-        sha256: ddb30e9a6ed5252e010d86457fd393d37fe1b55a78edd6b3e0b29b2b12e088b9
-
-      - type: archive
-        url: https://proxy.golang.org/github.com/fvbommel/sortorder/@v/v1.1.0.zip
-        strip-components: 3
-        dest: cmd/cbconvert-gui/vendor/github.com/fvbommel/sortorder
-        sha256: a4dbc58d2f72212474a7b5e1894b11d6712b687f4cc66ca1f6e202a375d252f7
 
       - type: archive
         url: https://proxy.golang.org/github.com/!s!t!a!r!r!y-!s/zip/@v/v0.2.3.zip
@@ -69,16 +47,16 @@ modules:
         sha256: 7b7af5c34cdc6d4b55be309ef0c7bfa5147029f8484d799c092be3141463a76b
 
       - type: archive
-        url: https://proxy.golang.org/github.com/andybalholm/brotli/@v/v1.2.1.zip
+        url: https://proxy.golang.org/github.com/andybalholm/brotli/@v/v1.3.0.zip
         strip-components: 3
         dest: cmd/cbconvert-gui/vendor/github.com/andybalholm/brotli
-        sha256: 83d570ec7f189deaf87376ba4f36d2e981a0dc4f706bf4d84cf11cc4efb1a857
+        sha256: 2bf3f7fc5a7e898cca45b947908c909f8d46ff27eb92df008cdb14fe870a9993
 
       - type: archive
-        url: https://proxy.golang.org/github.com/anthonynsimon/bild/@v/v0.15.0.zip
+        url: https://proxy.golang.org/github.com/anthonynsimon/bild/@v/v0.17.1.zip
         strip-components: 3
         dest: cmd/cbconvert-gui/vendor/github.com/anthonynsimon/bild
-        sha256: 4d13f88fefe6ecc968739647d5dcffb064a148abcfbd3eab4b0143494ca8a10d
+        sha256: da250f69a0358af8fdbe9e22412ba75a11f1a482cd179c53605cd03d83ea6461
 
       - type: archive
         url: https://proxy.golang.org/github.com/bodgit/plumbing/@v/v1.3.0.zip
@@ -87,10 +65,10 @@ modules:
         sha256: 15c80dc98fd6b972798a6c24a002f6fb00b28abdc9928185206a5abc5e56a089
 
       - type: archive
-        url: https://proxy.golang.org/github.com/bodgit/sevenzip/@v/v1.6.4.zip
+        url: https://proxy.golang.org/github.com/bodgit/sevenzip/@v/v1.6.5.zip
         strip-components: 3
         dest: cmd/cbconvert-gui/vendor/github.com/bodgit/sevenzip
-        sha256: 18d23490d554694a16a2dbc63112ee3332b8b2129a9b34ada4de0660db8b714b
+        sha256: 9dbad89992338ff0c408a351e9135221715d309acf4234f52fe69d23da7ace7c
 
       - type: archive
         url: https://proxy.golang.org/github.com/bodgit/windows/@v/v1.0.1.zip
@@ -105,88 +83,64 @@ modules:
         sha256: bc6111029c5b2a663b69e6d622d1082ccaf114b31162ea046681c2e4b689ee43
 
       - type: archive
-        url: https://proxy.golang.org/github.com/dsoprea/go-exif/v2/@v/v2.0.0-20230826092837-6579e82b732d.zip
-        strip-components: 4
-        dest: cmd/cbconvert-gui/vendor/github.com/dsoprea/go-exif/v2
-        sha256: 1c64f78838ecb1dca35ce6d9848317181e53eedaff56f0caa3eef087fb461b6c
-
-      - type: archive
-        url: https://proxy.golang.org/github.com/dsoprea/go-logging/@v/v0.0.0-20200710184922-b02d349568dd.zip
-        strip-components: 3
-        dest: cmd/cbconvert-gui/vendor/github.com/dsoprea/go-logging
-        sha256: e6e73dfd34d25a5ebbbf44bb249864aa3c3fa846faae64a1629e8cca528aba93
-
-      - type: archive
-        url: https://proxy.golang.org/github.com/dsoprea/go-png-image-structure/@v/v0.0.0-20210512210324-29b889a6093d.zip
-        strip-components: 3
-        dest: cmd/cbconvert-gui/vendor/github.com/dsoprea/go-png-image-structure
-        sha256: 70b0c4c3e150fd19f14f93d242372c4061b943c19acf33d307d67d5b7aa1bab2
-
-      - type: archive
-        url: https://proxy.golang.org/github.com/dsoprea/go-utility/@v/v0.0.0-20221003172846-a3e1774ef349.zip
-        strip-components: 3
-        dest: cmd/cbconvert-gui/vendor/github.com/dsoprea/go-utility
-        sha256: 8323305801e24bb01a0b6bab2a06756d7c52cb6106362773951fa75473ec3b2b
-
-      - type: archive
-        url: https://proxy.golang.org/github.com/dustin/go-humanize/@v/v1.0.1.zip
-        strip-components: 3
-        dest: cmd/cbconvert-gui/vendor/github.com/dustin/go-humanize
-        sha256: 319404ea84c8a4e2d3d83f30988b006e7dd04976de3e1a1a90484ad94679fa46
-
-      - type: archive
-        url: https://proxy.golang.org/github.com/ebitengine/purego/@v/v0.10.1.zip
+        url: https://proxy.golang.org/github.com/ebitengine/purego/@v/v0.11.3.zip
         strip-components: 3
         dest: cmd/cbconvert-gui/vendor/github.com/ebitengine/purego
-        sha256: 3622fb940cb6c999b1e9d13145fcac79401d3a8bf2ca9af71de486533119a120
+        sha256: 794b433246c662b29a0b48f2f07b1814bfe15ca61744de88f05d18d7795f77c2
 
       - type: archive
-        url: https://proxy.golang.org/github.com/gen2brain/avif/@v/v0.5.1.zip
+        url: https://proxy.golang.org/github.com/fvbommel/sortorder/@v/v1.2.1.zip
         strip-components: 3
-        dest: cmd/cbconvert-gui/vendor/github.com/gen2brain/avif
-        sha256: 2eecf43d26d850a5833e803d666d8e8f6909962aa590570f0cb29ef47ae956d0
+        dest: cmd/cbconvert-gui/vendor/github.com/fvbommel/sortorder
+        sha256: 423d36aa79549cc3a453efa81c0ac438c7a12057677fb90f417d6dd14c430f59
 
       - type: archive
-        url: https://proxy.golang.org/github.com/gen2brain/go-fitz/@v/v1.28.1.zip
+        url: https://proxy.golang.org/github.com/gen2brain/folio/@v/v0.3.1.zip
         strip-components: 3
-        dest: cmd/cbconvert-gui/vendor/github.com/gen2brain/go-fitz
-        sha256: a7b52db14040b037771e1ec409c829a05e46ad99f34686c9edfebce625ef1370
+        dest: cmd/cbconvert-gui/vendor/github.com/gen2brain/folio
+        sha256: ac14cf0f8fd5710180f8fc54443c28105116a0181df7fd651422f2e90934dc5d
 
       - type: archive
-        url: https://proxy.golang.org/github.com/gen2brain/jpegli/@v/v0.4.1.zip
+        url: https://proxy.golang.org/github.com/gen2brain/gav1d/@v/v0.2.10.zip
         strip-components: 3
-        dest: cmd/cbconvert-gui/vendor/github.com/gen2brain/jpegli
-        sha256: 4cf30321e794aae3e21484dd6b37b0bbd445158e023b90a7f0eb4d64981d2759
+        dest: cmd/cbconvert-gui/vendor/github.com/gen2brain/gav1d
+        sha256: 7574e9957b97ab58b2ccfb3accfe94042a279d54ae611cafc98c2f15757ea0d6
 
       - type: archive
-        url: https://proxy.golang.org/github.com/gen2brain/jpegn/@v/v0.4.2.zip
+        url: https://proxy.golang.org/github.com/gen2brain/h265/@v/v0.2.7.zip
+        strip-components: 3
+        dest: cmd/cbconvert-gui/vendor/github.com/gen2brain/h265
+        sha256: 8d0edd6c407d403fb0bf36dc501302ebc0d9e95bae9703ea914234ca06428b7e
+
+      - type: archive
+        url: https://proxy.golang.org/github.com/gen2brain/iup-go/iup/@v/v0.41.0.zip
+        strip-components: 4
+        dest: cmd/cbconvert-gui/vendor/github.com/gen2brain/iup-go/iup
+        sha256: 879f4cdabf4fc991405064457eabb926550575703ce0305e54bd88b15ef49cb6
+
+      - type: archive
+        url: https://proxy.golang.org/github.com/gen2brain/jpegn/@v/v0.7.1.zip
         strip-components: 3
         dest: cmd/cbconvert-gui/vendor/github.com/gen2brain/jpegn
-        sha256: 5eac7d8d6761c8e44fa20d8e0e419a3908edcfa8ff64529cdeaa0ed45ab176f7
+        sha256: 1b482167123c033162e2649401a2c2b4b7d8673a06bb4c8950de9f82d0fb52c9
 
       - type: archive
-        url: https://proxy.golang.org/github.com/gen2brain/jpegxl/@v/v0.5.2.zip
+        url: https://proxy.golang.org/github.com/gen2brain/jxl/@v/v0.2.2.zip
         strip-components: 3
-        dest: cmd/cbconvert-gui/vendor/github.com/gen2brain/jpegxl
-        sha256: 7990c7e0bb2b8d47be788db57f9777bf40b975359b8f80f1606bc2b82743ca95
+        dest: cmd/cbconvert-gui/vendor/github.com/gen2brain/jxl
+        sha256: dee54acbf321456f96171bbf884254e90a397cb090cdca380493338d54614f59
 
       - type: archive
-        url: https://proxy.golang.org/github.com/gen2brain/webp/@v/v0.6.1.zip
+        url: https://proxy.golang.org/github.com/gen2brain/pngn/@v/v0.1.3.zip
         strip-components: 3
-        dest: cmd/cbconvert-gui/vendor/github.com/gen2brain/webp
-        sha256: a7a8563981740347a89dcc47864fb9d5c7e08e43c089713ec7862afb10042ff9
+        dest: cmd/cbconvert-gui/vendor/github.com/gen2brain/pngn
+        sha256: 1d0469d1f087fb332ba2c50beb2539e8a01b3e57663eb36febe701893926163b
 
       - type: archive
-        url: https://proxy.golang.org/github.com/go-errors/errors/@v/v1.5.1.zip
+        url: https://proxy.golang.org/github.com/gen2brain/vpx/@v/v0.2.3.zip
         strip-components: 3
-        dest: cmd/cbconvert-gui/vendor/github.com/go-errors/errors
-        sha256: 9630a42ecb17920a5f9ce332356f8a28ad4aaff529e2ecb676b4a1d11d3149c0
-
-      - type: archive
-        url: https://proxy.golang.org/github.com/golang/geo/@v/v0.0.0-20260625163123-7c0e84413537.zip
-        strip-components: 3
-        dest: cmd/cbconvert-gui/vendor/github.com/golang/geo
-        sha256: 579f7f317624a466e9ee85675bf57a2eb2e24e75bf9c7b5b62ca6e4fb5031819
+        dest: cmd/cbconvert-gui/vendor/github.com/gen2brain/vpx
+        sha256: 7f84af6e7d161df71433966d25abf9c3b5fae84be712a904c23be518bcb81ee4
 
       - type: archive
         url: https://proxy.golang.org/github.com/hashicorp/golang-lru/v2/@v/v2.0.7.zip
@@ -201,16 +155,22 @@ modules:
         sha256: e0d7e249d24cc85736529e7984ed2a7ac1579acef570efdc5114456928371b69
 
       - type: archive
-        url: https://proxy.golang.org/github.com/klauspost/compress/@v/v1.18.6.zip
+        url: https://proxy.golang.org/github.com/klauspost/compress/@v/v1.20.4.zip
         strip-components: 3
         dest: cmd/cbconvert-gui/vendor/github.com/klauspost/compress
-        sha256: 61b417d2d3b6b7f5b5f4179f311fb156bd5bcea040353150c41111dc1777f11a
+        sha256: 680860caaacbb74f2010f32e4eb81f14cdc597e8a4633c7316946ab7cca5895a
 
       - type: archive
-        url: https://proxy.golang.org/github.com/klauspost/pgzip/@v/v1.2.6.zip
+        url: https://proxy.golang.org/github.com/klauspost/cpuid/v2/@v/v2.4.2.zip
+        strip-components: 4
+        dest: cmd/cbconvert-gui/vendor/github.com/klauspost/cpuid/v2
+        sha256: 4cd77a9cc99022734e2efdaaab8c1b6459c55490d75b954dc4d2560f50b178a3
+
+      - type: archive
+        url: https://proxy.golang.org/github.com/klauspost/pgzip/@v/v1.3.0.zip
         strip-components: 3
         dest: cmd/cbconvert-gui/vendor/github.com/klauspost/pgzip
-        sha256: 8ac508e93b22dca1a731a3a4c921b57c5ed1daea7b3629a2cf85c3b7530dda84
+        sha256: e443bc66e64394fdd9f64b55d33e58f1571733150b05c295e83203485b8a2040
 
       - type: archive
         url: https://proxy.golang.org/github.com/mholt/archives/@v/v0.1.5.zip
@@ -225,22 +185,22 @@ modules:
         sha256: a4672995fd823a9d6793bcb8de131739d629438fe787c99985c69cf8638da8d5
 
       - type: archive
-        url: https://proxy.golang.org/github.com/minio/minlz/@v/v1.1.1.zip
+        url: https://proxy.golang.org/github.com/minio/minlz/@v/v1.3.0.zip
         strip-components: 3
         dest: cmd/cbconvert-gui/vendor/github.com/minio/minlz
-        sha256: e685ab1586a558ed03baa0937c899451d94dfeada1d88a0e3f7427c458453945
+        sha256: f9a1d41acc496e483325e291ff09593516c8d67a9f58c047ed3f7bd980675e83
 
       - type: archive
-        url: https://proxy.golang.org/github.com/nwaples/rardecode/v2/@v/v2.2.5.zip
+        url: https://proxy.golang.org/github.com/nwaples/rardecode/v2/@v/v2.4.6.zip
         strip-components: 4
         dest: cmd/cbconvert-gui/vendor/github.com/nwaples/rardecode/v2
-        sha256: f3aade153b27b75d29a1fef232f4937c65fe629eac8a1676deb98ee3899e66f0
+        sha256: 898b8d480569923cf052ffaa597a57cff6d7fa5ea638e50195f74808c0414a0d
 
       - type: archive
-        url: https://proxy.golang.org/github.com/pierrec/lz4/v4/@v/v4.1.27.zip
+        url: https://proxy.golang.org/github.com/pierrec/lz4/v4/@v/v4.1.33.zip
         strip-components: 4
         dest: cmd/cbconvert-gui/vendor/github.com/pierrec/lz4/v4
-        sha256: 702ad206ffeec8d3ac8bc1ce7e2d0b201fbc7683c8ab8758210172c54f03353f
+        sha256: b848476e729bbdf587a80940fa84b45680a63052e6c021201baa38ee61275686
 
       - type: archive
         url: https://proxy.golang.org/github.com/sorairolake/lzip-go/@v/v0.3.8.zip
@@ -261,55 +221,49 @@ modules:
         sha256: e832489fca0e2a2455bc76235c9681509b3666b89f154afcd994814929a9081b
 
       - type: archive
-        url: https://proxy.golang.org/github.com/tetratelabs/wazero/@v/v1.12.0.zip
-        strip-components: 3
-        dest: cmd/cbconvert-gui/vendor/github.com/tetratelabs/wazero
-        sha256: dcee360162e809d1273c685d20f6faf6df7ae0d925a73bf8f1af1a4756bfe587
-
-      - type: archive
-        url: https://proxy.golang.org/github.com/ulikunitz/xz/@v/v0.5.15.zip
+        url: https://proxy.golang.org/github.com/ulikunitz/xz/@v/v0.5.17.zip
         strip-components: 3
         dest: cmd/cbconvert-gui/vendor/github.com/ulikunitz/xz
-        sha256: ca1830f9abc6c99a003ad28f2b145ea0af0c99d5769ddff08d23ce055959fd12
+        sha256: 14fd36aba2f4bae6ed85e8b8b2269f3fe5743dc3b6e3d73a3ef7469f20d5cc5e
 
       - type: archive
-        url: https://proxy.golang.org/go4.org/@v/v0.0.0-20260112195520-a5071408f32f.zip
+        url: https://proxy.golang.org/github.com/zeebo/xxh3/@v/v1.1.1-0.20260908150653-f7225998cebf.zip
+        strip-components: 3
+        dest: cmd/cbconvert-gui/vendor/github.com/zeebo/xxh3
+        sha256: 3f7f000ac5a2aeae4de943148c6fd268890f29f077f5a6deb1029e2cec6979b7
+
+      - type: archive
+        url: https://proxy.golang.org/go4.org/@v/v0.0.0-20261028031214-ed6929a230fe.zip
         strip-components: 1
         dest: cmd/cbconvert-gui/vendor/go4.org
-        sha256: 11c8ccd8e5a90213e32b76666fa3d73cd481afc3d31c57669b76a186bd1aabe4
+        sha256: 0d0d9beb5f4f074bcd5e389b05b8f9b01e363bc9fc766d513cc08c2092bd2cd2
 
       - type: archive
-        url: https://proxy.golang.org/golang.org/x/image/@v/v0.43.0.zip
+        url: https://proxy.golang.org/golang.org/x/image/@v/v0.48.0.zip
         strip-components: 3
         dest: cmd/cbconvert-gui/vendor/golang.org/x/image
-        sha256: 2c8044d3d323ff2d14de22859198930b61e3e9ac7e726dcef1dc32ce62b54f43
+        sha256: 49489602fe3caf8a606a62422037b70daabaf579a0606359d838c545e3d8121f
 
       - type: archive
-        url: https://proxy.golang.org/golang.org/x/net/@v/v0.56.0.zip
+        url: https://proxy.golang.org/golang.org/x/net/@v/v0.63.0.zip
         strip-components: 3
         dest: cmd/cbconvert-gui/vendor/golang.org/x/net
-        sha256: bbc975b3ec9cd86892cfc515badc125657e135c00162d0da5de33f6d07930464
+        sha256: e155ed7fbcd5c8b799daca68c0a7bdf31eb793bda052eda207d1faf25863fffc
 
       - type: archive
-        url: https://proxy.golang.org/golang.org/x/sync/@v/v0.21.0.zip
+        url: https://proxy.golang.org/golang.org/x/sync/@v/v0.25.0.zip
         strip-components: 3
         dest: cmd/cbconvert-gui/vendor/golang.org/x/sync
-        sha256: ee65459023de7f24836f6e2123144b5329bd0a4d05a87c3c448509378e2e6be7
+        sha256: c27da17d7e217dec0c2f8c715e5ce2b92815fa76fc08da13c41a73dd6a67dfe0
 
       - type: archive
-        url: https://proxy.golang.org/golang.org/x/sys/@v/v0.46.0.zip
+        url: https://proxy.golang.org/golang.org/x/sys/@v/v0.50.0.zip
         strip-components: 3
         dest: cmd/cbconvert-gui/vendor/golang.org/x/sys
-        sha256: 36dc83b6bc5884d260cdbd9d09e597b1eed64d15dfdc374ca6e31aef99d533d7
+        sha256: b115e8a144a7c9d1df3ffb8af20b283e162844b5b624a97ee342955cca69b9e6
 
       - type: archive
-        url: https://proxy.golang.org/golang.org/x/text/@v/v0.38.0.zip
+        url: https://proxy.golang.org/golang.org/x/text/@v/v0.44.0.zip
         strip-components: 3
         dest: cmd/cbconvert-gui/vendor/golang.org/x/text
-        sha256: be98266212ac63cdc78631ae0ff8f783e0f5e47d9b6094c11ffebe43fd0424b3
-
-      - type: archive
-        url: https://proxy.golang.org/gopkg.in/yaml.v2/@v/v2.4.0.zip
-        strip-components: 2
-        dest: cmd/cbconvert-gui/vendor/gopkg.in/yaml.v2
-        sha256: ede49e27c4cca6cdd2ec719aed8ea4d363710cceb3d411e7a786fbdec0d391fd
+        sha256: e51c60a7d121a493048b1638023983ce183bd5d70df1db495423ce1415663202
